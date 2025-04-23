@@ -97,6 +97,16 @@ namespace TravelingApp.Infraestructure.Context.Configurations
                   .HasColumnName("AccessFailedCount")
                   .HasColumnType("int")
                   .HasDefaultValue(0);
+
+            entity.Property(u => u.RowVersion)
+                .IsRowVersion()
+                .IsConcurrencyToken()
+                .HasColumnName("RowVersion")
+                .HasColumnType("rowversion");
+
+            entity.Property(u => u.UpdatedAt)
+                .HasColumnType("datetime2");
+
         }
     }
 }

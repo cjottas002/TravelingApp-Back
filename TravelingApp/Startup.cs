@@ -25,7 +25,7 @@ namespace TravelingApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.RegisterServicesCore(configuration);
+            services.RegisterServices(configuration);
             // Inicializa los datos de usuarios y roles
             DataGenerator.Initialize(services).GetAwaiter();
         }
@@ -36,20 +36,12 @@ namespace TravelingApp
             app.UseMiddleware<ValidationExceptionMiddleware>();
             app.UseStaticFiles();
 
-            if (env.IsDevelopment())
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            else if (env.IsProduction())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.RoutePrefix = string.Empty;
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-                });
-            }
+                c.RoutePrefix = string.Empty;
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+            });
 
             app.UseCors("AllowAllOrigins");
 

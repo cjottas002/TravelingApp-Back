@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelingApp.Infraestructure.Context;
 
@@ -11,9 +12,11 @@ using TravelingApp.Infraestructure.Context;
 namespace TravelingApp.Infraestructure.Migrations
 {
     [DbContext(typeof(TravelingAppDbContext))]
-    partial class TravelingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250423155143_AddUpdateAt")]
+    partial class AddUpdateAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

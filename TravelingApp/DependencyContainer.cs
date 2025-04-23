@@ -17,12 +17,14 @@ using TravelingApp.Application.Request.Account.Commands.Login;
 using TravelingApp.CrossCutting.Business.Interfaces;
 using TravelingApp.Infraestructure.Repositories.TravelingApp.Infrastructure.Repositories;
 using TravelingApp.Infraestructure.Persistence;
+using TravelingApp.Application.Request.Users.Queries;
+using TravelingApp.Infraestructure.Repositories;
 
 namespace TravelingApp
 {
-    public static class RegisterServices
+    public static class DependencyContainer
     {
-        public static void RegisterServicesCore(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
 
             services.Configure<JwtDto>(configuration.GetSection("Jwt"));
@@ -84,7 +86,7 @@ namespace TravelingApp
             .AddDefaultTokenProviders();
 
             services.AddSingleton<Mediator>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
@@ -95,14 +97,16 @@ namespace TravelingApp
                 cfg.RegisterServicesFromAssembly(typeof(LoginCommand).Assembly);
             });
 
-            //services.AddAutoMapper(typeof(LoginCommandHandler).Assembly);
+            services.AddAutoMapper(typeof(GetAllUsersQueryHandler).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssembly(typeof(LoginCommand).Assembly);
 
+            services.AddScoped(typeof(IUnitOfWorkScope<>), typeof(UnitOfWorkScope<>));
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 
-
+            services.AddScoped<IListFilter, ListFilter>();
+            services.AddScoped<IFilterValidationProvider, FilterValidationProvider>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUserService, UserService>();

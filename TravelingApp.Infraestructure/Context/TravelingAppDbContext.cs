@@ -26,6 +26,22 @@ namespace TravelingApp.Infraestructure.Context
             builder.ApplyConfigurationsFromAssembly(typeof(TravelingAppDbContext).Assembly);
         }
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified);
+
+            foreach (var entry in entries)
+            {
+                if (entry.Entity is User user)
+                {
+                    user.UpdatedAt = DateTime.UtcNow;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+
 
         public virtual DbSet<User> User { get; set; }
     }

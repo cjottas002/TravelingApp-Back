@@ -17,29 +17,32 @@ namespace TravelingApp.CrossCutting.Extensions
             return ordered.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
 
-        public static IQueryable<TEntity> Page<TEntity>(this IQueryable<TEntity> query, int pageSize, int pageIndex, string orderBy, bool ascending)
+        public static IQueryable<TEntity> Page<TEntity>(this IQueryable<TEntity> query, int pageSize, int pageIndex, string? orderBy, bool ascending)
             where TEntity : class
         {
             ArgumentNullException.ThrowIfNull(query);
-            if (string.IsNullOrWhiteSpace(orderBy)) throw new ArgumentException("Order by must be a non-empty string.", nameof(orderBy));
             if (pageSize <= 0) throw new ArgumentOutOfRangeException(nameof(pageSize), "Page size must be greater than zero.");
             if (pageIndex < 0) throw new ArgumentOutOfRangeException(nameof(pageIndex), "Page index cannot be negative.");
 
             bool first = true;
-            foreach (var field in orderBy.Split(',', ';').Select(f => f.Trim()).Where(f => f.Length > 0))
+            if (!string.IsNullOrWhiteSpace(orderBy))
             {
-                if (first)
+                foreach (var field in orderBy.Split(',', ';').Select(f => f.Trim()).Where(f => f.Length > 0))
                 {
-                    query = ascending ? query.OrderBy(field) : query.OrderByDescending(field);
-                    first = false;
+                    if (first)
+                    {
+                        query = ascending ? query.OrderBy(field) : query.OrderByDescending(field);
+                        first = false;
+                    }
+                    else
+                    {
+                        query = ascending ? query.ThenBy(field) : query.ThenByDescending(field);
+                    }
                 }
-                else
-                {
-                    query = ascending ? query.ThenBy(field) : query.ThenByDescending(field);
-                }
-            }
+            } 
 
-            return query.Skip(pageIndex * pageSize).Take(pageSize);
+
+            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
 
         public static IOrderedQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> query, string fieldName) where TEntity : class
