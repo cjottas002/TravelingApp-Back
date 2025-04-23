@@ -5,10 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TravelingApp.Application.Account.Responses.Login;
-using TravelingApp.Application.Account.Responses.Register;
 using TravelingApp.Application.Common.Interfaces;
 using TravelingApp.Application.Response;
+using TravelingApp.Application.Response.Account;
 using TravelingApp.CrossCutting.Configuration;
 using TravelingApp.CrossCutting.Extensions;
 using TravelingApp.Domain.Entities;
@@ -19,13 +18,13 @@ namespace TravelingApp.Infraestructure.Services
     {
         private readonly JwtDto configuration = configuration.Value.ValidateArgument();
 
-        public async Task<FrameworkResponse<LoginResponse>> LoginAsync(string username, string password)
+        public async Task<FrameworkResponse<LoginDto>> LoginAsync(string username, string password)
         {
             var user = await userManager.FindByNameAsync(username);
 
             if (user == null)
             {
-                return new FrameworkResponse<LoginResponse>
+                return new FrameworkResponse<LoginDto>
                 {
                     Errors = [new ValidationResult("Usuario/Contraseña invalida", [username])]
                 };
@@ -35,31 +34,31 @@ namespace TravelingApp.Infraestructure.Services
 
             if (!result.Succeeded)
             {
-                return new FrameworkResponse<LoginResponse>
+                return new FrameworkResponse<LoginDto>
                 {
                     Errors = [new ValidationResult("Usuario/Contraseña invalida", [nameof(password)])]
                 };
             }
 
-            var response = new LoginResponse
+            var response = new LoginDto
             {
                 UserId = user.Id,
                 Token = await this.GenerateJwtTokenAsync(user),
             };
 
-            return new FrameworkResponse<LoginResponse>
+            return new FrameworkResponse<LoginDto>
             {
                 Data = response,
                 Count = 1
             };
         }
 
-        public async Task<FrameworkResponse<RegisterResponse>> RegisterAsync(string username, string password)
+        public async Task<FrameworkResponse<RegisterDto>> RegisterAsync(string username, string password)
         {
             var existingUser = await userManager.FindByNameAsync(username);
             if (existingUser != null)
             {
-                return new FrameworkResponse<RegisterResponse>
+                return new FrameworkResponse<RegisterDto>
                 {
                     Errors = [new ValidationResult("El Usuario ya está registrado", [nameof(username)])]
                 };
@@ -70,15 +69,15 @@ namespace TravelingApp.Infraestructure.Services
 
             if (!result.Succeeded)
             {
-                return new FrameworkResponse<RegisterResponse>
+                return new FrameworkResponse<RegisterDto>
                 {
                     Errors = result.Errors.Select(e => new ValidationResult(e.Description, [e.Code]))
                 };
             }
 
-            return new FrameworkResponse<RegisterResponse>
+            return new FrameworkResponse<RegisterDto>
             {
-                Data = new RegisterResponse()
+                Data = new RegisterDto()
                 {
                     IsRegistered = true
                 },

@@ -8,12 +8,15 @@ using System.Text;
 using TravelingApp.Domain.Entities;
 using TravelingApp.Infraestructure;
 using TravelingApp.Infraestructure.Context;
-using TravelingApp.Application.Account.Commands.Login;
 using TravelingApp.Application.Common.Interfaces;
 using TravelingApp.Infraestructure.Services;
 using TravelingApp.CrossCutting.Configuration;
 using TravelingApp.Application.Common.Behaviors;
 using FluentValidation;
+using TravelingApp.Application.Request.Account.Commands.Login;
+using TravelingApp.CrossCutting.Business.Interfaces;
+using TravelingApp.Infraestructure.Repositories.TravelingApp.Infrastructure.Repositories;
+using TravelingApp.Infraestructure.Persistence;
 
 namespace TravelingApp
 {
@@ -81,6 +84,8 @@ namespace TravelingApp
             .AddDefaultTokenProviders();
 
             services.AddSingleton<Mediator>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPostProcessorBehavior<,>));
@@ -94,9 +99,13 @@ namespace TravelingApp
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssembly(typeof(LoginCommand).Assembly);
 
+            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+
 
 
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IUserService, UserService>();
 
         }
     }

@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using Moq;
-using TravelingApp.Application.Account.Commands.Register;
-using TravelingApp.Application.Account.Responses;
-using TravelingApp.Application.Account.Responses.Register;
 using TravelingApp.Application.Common.Interfaces;
+using TravelingApp.Application.Request.Account.Commands.Register;
+using TravelingApp.Application.Response;
+using TravelingApp.Application.Response.Account;
 
 namespace TravelingApp.MSUnitTest.Commands.AuthCommands
 {
@@ -26,9 +26,9 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
             // Arrange
             var command = new RegisterCommand { Username = "newuser", Password = "Admin123!" };
 
-            var successResponse = new FrameworkResponse<RegisterResponse>
+            var successResponse = new FrameworkResponse<RegisterDto>
             {
-                Data = new RegisterResponse { IsRegistered = true },
+                Data = new RegisterDto { IsRegistered = true },
                 Count = 1
             };
 
@@ -50,7 +50,7 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
             // Arrange
             var command = new RegisterCommand { Username = "existinguser", Password = "Admin123!" };
 
-            var failedResponse = new FrameworkResponse<RegisterResponse>
+            var failedResponse = new FrameworkResponse<RegisterDto>
             {
                 Errors =
                 [
@@ -77,7 +77,7 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
             // Arrange
             var command = new RegisterCommand { Username = "newuser", Password = "123" };
 
-            var failedResponse = new FrameworkResponse<RegisterResponse>
+            var failedResponse = new FrameworkResponse<RegisterDto>
             {
                 Errors =
                 [
@@ -100,7 +100,6 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.Exception))]
         public async Task Handle_Should_Throw_Exception_When_Service_Fails()
         {
             // Arrange
@@ -111,7 +110,7 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
                 .ThrowsAsync(new System.Exception("Unexpected error"));
 
             // Act
-            await _handler.Handle(command, CancellationToken.None);
+            await Assert.ThrowsExactlyAsync<Exception>(async () => await _handler.Handle(command, CancellationToken.None));
         }
     }
 }

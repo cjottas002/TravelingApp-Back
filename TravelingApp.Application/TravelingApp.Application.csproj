@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Request\Account\Request\**" />
+    <EmbeddedResource Remove="Request\Account\Request\**" />
+    <None Remove="Request\Account\Request\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
@@ -14,10 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TravelingApp.CrossCutting\TravelingApp.CrossCutting.csproj" />
     <ProjectReference Include="..\TravelingApp.Domain\TravelingApp.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Account\Request\" />
   </ItemGroup>
 
 </Project>

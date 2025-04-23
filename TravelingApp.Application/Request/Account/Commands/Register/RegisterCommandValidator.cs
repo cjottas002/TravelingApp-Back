@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 
-namespace TravelingApp.Application.Account.Commands.Login
+namespace TravelingApp.Application.Request.Account.Commands.Register
 {
-    public class LoginCommandValidator : AbstractValidator<LoginCommand>
+    public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
-        public LoginCommandValidator()
+        public RegisterCommandValidator() 
         {
             RuleFor(x => x.Username)
-                .NotEmpty().WithMessage("El nombre de usuario es obligatorio");
+                      .NotEmpty().WithMessage("El nombre de usuario es obligatorio");
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("La contraseña es obligatoria")

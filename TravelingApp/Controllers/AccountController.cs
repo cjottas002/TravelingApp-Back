@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TravelingApp.Application.Account.Commands.Login;
-using TravelingApp.Application.Account.Commands.Register;
-using TravelingApp.Application.Account.Queries;
+using TravelingApp.Application.Request.Account.Commands.Login;
+using TravelingApp.Application.Request.Account.Commands.Register;
 
 namespace TravelingApp.Controllers
 {
@@ -24,13 +23,6 @@ namespace TravelingApp.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterCommand request)
         {
             return Ok(await mediator.Send(request));
-        }
-
-        [HttpGet]
-        [Route("getAllUsers")]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await mediator.Send(new GetAllUsersQuery()));
         }
     }
 }

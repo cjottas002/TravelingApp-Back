@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
 using Moq;
 using System.ComponentModel.DataAnnotations;
-using TravelingApp.Application.Account.Commands.Login;
-using TravelingApp.Application.Account.Responses;
-using TravelingApp.Application.Account.Responses.Login;
 using TravelingApp.Application.Common.Interfaces;
+using TravelingApp.Application.Request.Account.Commands.Login;
+using TravelingApp.Application.Response;
+using TravelingApp.Application.Response.Account;
 
 namespace TravelingApp.MSUnitTest.Commands.AuthCommands
 {
@@ -27,9 +27,9 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
             // Arrange
             var command = new LoginCommand { Username = "admin@test.com", Password = "admin" };
 
-            var expectedResponse = new FrameworkResponse<LoginResponse>
+            var expectedResponse = new FrameworkResponse<LoginDto>
             {
-                Data = new LoginResponse
+                Data = new LoginDto
                 {
                     UserId = "123",
                     Token = "token123"
@@ -57,12 +57,12 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
             // Arrange
             var command = new LoginCommand { Username = "notfound@test.com", Password = "admin" };
 
-            var failedResponse = new FrameworkResponse<LoginResponse>
+            var failedResponse = new FrameworkResponse<LoginDto>
             {
-                Errors = new List<ValidationResult>
-                {
+                Errors =
+                [
                     new("Usuario no encontrado", ["Username"])
-                }
+                ]
             };
 
             _accountServiceMock
@@ -84,7 +84,7 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
             // Arrange
             var command = new LoginCommand { Username = "admin@test.com", Password = "wrongpass" };
 
-            var failedResponse = new FrameworkResponse<LoginResponse>
+            var failedResponse = new FrameworkResponse<LoginDto>
             {
                 Errors =
                 [
@@ -111,7 +111,7 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
             // Arrange
             var command = new LoginCommand { Username = "", Password = "" };
 
-            var failedResponse = new FrameworkResponse<LoginResponse>
+            var failedResponse = new FrameworkResponse<LoginDto>
             {
                 Errors =
                 [
@@ -133,7 +133,6 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public async Task Handle_Should_Throw_When_Service_Fails()
         {
             // Arrange
@@ -144,7 +143,7 @@ namespace TravelingApp.MSUnitTest.Commands.AuthCommands
                 .ThrowsAsync(new Exception("Unexpected error"));
 
             // Act
-            await _handler.Handle(command, CancellationToken.None);
+            await Assert.ThrowsExactlyAsync<Exception>(async () => await _handler.Handle(command, CancellationToken.None));
         }
     }
 }
