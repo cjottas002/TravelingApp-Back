@@ -1,0 +1,30 @@
+services:
+  travelingapp:
+    container_name: travelingapp-container
+    image: "${DOCKER_REGISTRY-}travelingapp:${IMAGE_TAG}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${ASPNETCORE_HTTP_PORTS}
+      - ConnectionStrings__DefaultConnection=Server=sqledge,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};
+    ports:
+      - "${TRAVELINGAPP_PORT}:${ASPNETCORE_HTTP_PORTS}"
+    deploy:
+      resources:
+        limits:
+          cpus:   "${LIMIT_CPUS}"
+          memory: "${LIMIT_MEMORY}"
+        reservations:
+          cpus:   "${RESERVE_CPUS}"
+          memory: "${RESERVE_MEMORY}"
+    restart: "${RESTART_POLICY}"
+
+  sqledge:
+    container_name: sqledge-container
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${DB_PASSWORD}
+      - MSSQL_PID=Developer
+      - MSSQL_TCP_PORT=1433
+    ports:
+      - "${DB_PORT}:1433"
+    restart: "${RESTART_POLICY}"

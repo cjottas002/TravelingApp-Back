@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraestructure", "{B67A1E7A-1C2B-4720-9CEF-BA4A0D6D0FE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelingApp.Infraestructure", "TravelingApp.Infraestructure\TravelingApp.Infraestructure.csproj", "{AE6BD41F-B4F4-4A85-B26A-4117C4F19412}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{DE556C7C-5A1F-4019-991E-68DBD3551B6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{0D5959D5-CC43-4F67-A79D-E4ADEE2A102C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelingApp.CrossCutting", "TravelingApp.CrossCutting\TravelingApp.CrossCutting.csproj", "{605D488B-D002-4171-9C47-EE76B5716D73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelingApp.MSUnitTest", "TravelingApp.MSUnitTest\TravelingApp.MSUnitTest.csproj", "{3FF98C00-AF65-49CD-A35D-A259A413926D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelingApp", "TravelingApp\TravelingApp.csproj", "{CA951684-E127-4A44-A921-50BDD3B42205}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{19C83FE6-4491-4030-A71A-08B20CA5E1D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelingApp.Application", "TravelingApp.Application\TravelingApp.Application.csproj", "{494BFCC9-4853-45E9-B720-5A910CF3CF0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B158FB43-EC74-4B3C-93DC-0488031F4713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelingApp.Domain", "TravelingApp.Domain\TravelingApp.Domain.csproj", "{2C5C0053-20F8-4C88-974A-4C75A85523E1}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "TravelingApp.Compose\docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE6BD41F-B4F4-4A85-B26A-4117C4F19412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE6BD41F-B4F4-4A85-B26A-4117C4F19412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE6BD41F-B4F4-4A85-B26A-4117C4F19412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE6BD41F-B4F4-4A85-B26A-4117C4F19412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605D488B-D002-4171-9C47-EE76B5716D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605D488B-D002-4171-9C47-EE76B5716D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605D488B-D002-4171-9C47-EE76B5716D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{605D488B-D002-4171-9C47-EE76B5716D73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FF98C00-AF65-49CD-A35D-A259A413926D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FF98C00-AF65-49CD-A35D-A259A413926D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FF98C00-AF65-49CD-A35D-A259A413926D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FF98C00-AF65-49CD-A35D-A259A413926D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA951684-E127-4A44-A921-50BDD3B42205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA951684-E127-4A44-A921-50BDD3B42205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA951684-E127-4A44-A921-50BDD3B42205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA951684-E127-4A44-A921-50BDD3B42205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{494BFCC9-4853-45E9-B720-5A910CF3CF0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{494BFCC9-4853-45E9-B720-5A910CF3CF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{494BFCC9-4853-45E9-B720-5A910CF3CF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{494BFCC9-4853-45E9-B720-5A910CF3CF0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C5C0053-20F8-4C88-974A-4C75A85523E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C5C0053-20F8-4C88-974A-4C75A85523E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C5C0053-20F8-4C88-974A-4C75A85523E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C5C0053-20F8-4C88-974A-4C75A85523E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE6BD41F-B4F4-4A85-B26A-4117C4F19412} = {B67A1E7A-1C2B-4720-9CEF-BA4A0D6D0FE1}
+		{605D488B-D002-4171-9C47-EE76B5716D73} = {DE556C7C-5A1F-4019-991E-68DBD3551B6B}
+		{3FF98C00-AF65-49CD-A35D-A259A413926D} = {0D5959D5-CC43-4F67-A79D-E4ADEE2A102C}
+		{CA951684-E127-4A44-A921-50BDD3B42205} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{494BFCC9-4853-45E9-B720-5A910CF3CF0A} = {19C83FE6-4491-4030-A71A-08B20CA5E1D3}
+		{2C5C0053-20F8-4C88-974A-4C75A85523E1} = {B158FB43-EC74-4B3C-93DC-0488031F4713}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03FB3BFA-C8F3-432B-9CE6-5404DECA30C0}
+	EndGlobalSection
+EndGlobal

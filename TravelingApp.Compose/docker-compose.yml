@@ -1,0 +1,15 @@
+services:
+  travelingapp:
+    build:
+      context: .
+      dockerfile: TravelingApp/Dockerfile
+    depends_on:
+      - sqledge
+
+  sqledge:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    volumes:
+      - sqledge_data:/var/opt/mssql
+
+volumes:
+  sqledge_data:
