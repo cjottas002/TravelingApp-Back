@@ -11,9 +11,9 @@ namespace TravelingApp.Controllers
 
         [HttpGet]
         [Route("getAllUsers")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllUsersQuery request)
         {
-            return Ok(await mediator.Send(new GetAllUsersQuery()));
+            return Ok(await mediator.Send(request));
         }
     }
 }
