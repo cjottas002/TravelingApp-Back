@@ -5,7 +5,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${ASPNETCORE_HTTP_PORTS}
-      - ConnectionStrings__DefaultConnection=Server=sqledge,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};
+      - ConnectionStrings__TravelingAppDbConnection=Server=sqledge,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};
     ports:
       - "${TRAVELINGAPP_PORT}:${ASPNETCORE_HTTP_PORTS}"
     deploy:
