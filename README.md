@@ -11,15 +11,6 @@
 
 ## 📱 Frontend (Android)
 
-El frontend está desarrollado en **Kotlin** siguiendo buenas prácticas de arquitectura moderna:
-
-- ✅ **MVVM** (Model-View-ViewModel)
-- ✅ **Diseño con XML** (layouts tradicionales)
-- ✅ **Jetpack Libraries** (LiveData, Navigation, ViewBinding, Lifecycle)
-- ✅ **Retrofit** para llamadas HTTP
-- ✅ **Dagger Hilt** para inyección de dependencias
-- ✅ **Modularización** para mantener una arquitectura escalable
-
 ### 📁 Módulos principales
 
 - `core`: configuración global (Retrofit, interceptores, etc.)
