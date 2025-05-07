@@ -5,15 +5,25 @@ services:
       dockerfile: TravelingApp/Dockerfile
     depends_on:
       - sqledge
-      - redis 
+      - redis
+    networks:
+      - travel-network
+  
 
   sqledge:
     image: mcr.microsoft.com/azure-sql-edge:2.0.0
     volumes:
       - sqledge_data:/var/opt/mssql
+    networks:
+      - travel-network
 
   redis:
     image: redis:7.0.15
+    networks:
+      - travel-network
 
 volumes:
   sqledge_data:
+
+networks:
+  travel-network:

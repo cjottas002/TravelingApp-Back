@@ -9,8 +9,8 @@ namespace TravelingApp.Application.Mapping
         public UserProfile()
         {
             CreateMap<User, UserDto>();
-            CreateMap<User, UserDto>().ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.PasswordHash));
-
+            CreateMap<User, UserDto>().ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.PasswordHash))
+                                      .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => new DateTimeOffset(src.UpdatedAt).ToUnixTimeMilliseconds()));
         }
     }
 }

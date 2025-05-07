@@ -5,7 +5,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${ASPNETCORE_HTTP_PORTS}
-      - ConnectionStrings__DefaultConnection=Server=sqledge,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};
+      - ConnectionStrings__TravelingAppDbConnection=Server=sqledge,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};
     ports:
       - "${TRAVELINGAPP_PORT}:${ASPNETCORE_HTTP_PORTS}"
     deploy:
@@ -26,7 +26,7 @@ services:
       - MSSQL_PID=Developer
       - MSSQL_TCP_PORT=1433
     ports:
-      - "${DB_PORT}:1433"
+      - "${DB_SQL_EDGE_PORT}:1433"
     restart: "${RESTART_POLICY}"
 
   redis:
@@ -38,5 +38,5 @@ services:
       "--loglevel", "warning"
     ]
     ports:
-      - "6379:6379"
+      - "${DB_REDIS_PORT}:6379"
     restart: "${RESTART_POLICY}"
