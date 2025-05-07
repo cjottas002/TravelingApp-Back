@@ -27,7 +27,17 @@ namespace TravelingApp
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.Configure<JwtDto>(configuration.GetSection("Jwt"));
+            services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetConnectionString("RedisDbConnection") ?? "localhost:6379";
+                options.InstanceName = $"TravelingApp.Cache:{configuration["ASPNETCORE_ENVIRONMENT"]}:";
+            });
+
+            services.Configure<RedisOptions>(configuration.GetSection("RegisOptions"));
+
+            services.AddScoped<ICacheService, RedisCacheService>();
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();

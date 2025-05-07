@@ -14,9 +14,9 @@ using TravelingApp.Domain.Entities;
 
 namespace TravelingApp.Infraestructure.Services
 {
-    public class AccountService(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<JwtDto> configuration) : IAccountService
+    public class AccountService(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<JwtOptions> configuration) : IAccountService
     {
-        private readonly JwtDto configuration = configuration.Value.ValidateArgument();
+        private readonly JwtOptions configuration = configuration.Value.ValidateArgument();
 
         public async Task<FrameworkResponse<LoginDto>> LoginAsync(string username, string password)
         {

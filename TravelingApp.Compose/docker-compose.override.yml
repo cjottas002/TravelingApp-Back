@@ -28,3 +28,15 @@ services:
     ports:
       - "${DB_PORT}:1433"
     restart: "${RESTART_POLICY}"
+
+  redis:
+    container_name: redis-container
+    command: [
+      "redis-server",
+      "--save", "",
+      "--appendonly", "no",
+      "--loglevel", "warning"
+    ]
+    ports:
+      - "6379:6379"
+    restart: "${RESTART_POLICY}"
